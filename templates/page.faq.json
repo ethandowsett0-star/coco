@@ -1,0 +1,90 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "settings": {
+        "padding_top": 28,
+        "padding_bottom": 12
+      }
+    },
+    "faq": {
+      "type": "collapsible-content",
+      "blocks": {
+        "row1": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "How long does it take to make my order?",
+            "icon": "stopwatch",
+            "row_content": "<p>Every piece is crocheted to order. Crafting usually takes 3–7 business days depending on the size of the item and current demand. Larger pieces like blankets can take a little longer — we'll let you know if that's the case.</p>"
+          }
+        },
+        "row2": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "How long does shipping take?",
+            "icon": "truck",
+            "row_content": "<p>Once your order ships, delivery usually takes 5–14 business days depending on your location. You'll receive a tracking number by email as soon as your parcel is on its way.</p>"
+          }
+        },
+        "row3": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Can I order a custom piece?",
+            "icon": "heart",
+            "row_content": "<p>Yes! Custom colors, sizes and designs are our favorite projects. Contact us before placing your order and tell us what you have in mind — we'll confirm what's possible, the price and the timeline.</p>"
+          }
+        },
+        "row4": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "How do I care for crochet items?",
+            "icon": "washing",
+            "row_content": "<p>Hand wash cold with a mild soap, gently press out the water (never wring), and dry flat away from direct sunlight. With a little care, your piece will stay soft and beautiful for years.</p>"
+          }
+        },
+        "row5": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "What payment methods do you accept?",
+            "icon": "lock",
+            "row_content": "<p>We accept all major credit and debit cards plus the express payment methods shown at checkout. All payments are processed securely — we never see or store your card details.</p>"
+          }
+        },
+        "row6": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "What is your return policy?",
+            "icon": "return",
+            "row_content": "<p>We accept returns within 30 days of delivery for unused items in their original condition. Custom-made orders are final sale. Please see our refund policy page for full details on how to start a return.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "row1",
+        "row2",
+        "row3",
+        "row4",
+        "row5",
+        "row6"
+      ],
+      "settings": {
+        "caption": "",
+        "heading": "",
+        "heading_size": "h1",
+        "heading_alignment": "center",
+        "layout": "row",
+        "container_color_scheme": "scheme-2",
+        "color_scheme": "scheme-1",
+        "open_first_collapsible_row": true,
+        "image_ratio": "adapt",
+        "desktop_layout": "image_second",
+        "padding_top": 12,
+        "padding_bottom": 48
+      }
+    }
+  },
+  "order": [
+    "main",
+    "faq"
+  ]
+}
