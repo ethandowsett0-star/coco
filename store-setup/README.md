@@ -1,12 +1,12 @@
-# Store setup files — Coco Crochet
+# Store setup files — CrochetMade
 
 Files used to set up the Shopify store. This folder is not part of the theme
 (listed in `.shopifyignore`; the Shopify GitHub integration only syncs theme folders).
 
 | File | Use |
 |---|---|
-| `coco-crochet-products-import.csv` | Shopify admin → Products → Import. Creates the 10 crochet pattern products (descriptions, prices, 66 photos) and their 6 collections. Photos are downloaded from the previous store's CDN during import, so run the import while `yourpattern.myshopify.com` is still online. |
-| `coco-crochet-store-policies.docx` | Settings → Policies. One policy per page; paste each one into the matching field. Replace the `[bracketed]` details. |
+| `crochetmade-products-import.csv` | Shopify admin → Products → Import. Creates the 10 crochet pattern products (descriptions, prices, 66 photos) and their 6 collections. Photos are downloaded from the previous store's CDN during import, so run the import while `yourpattern.myshopify.com` is still online. |
+| `crochetmade-store-policies.docx` | Settings → Policies. One policy per page; paste each one into the matching field. Replace the `[bracketed]` details. |
 
 ## Prices (set in the CSV, 9 Sep 2026)
 
@@ -28,7 +28,7 @@ Ladder: quick makes 4.99 · amigurumi, flowers and seasonal 6.99 · home-decor s
 
 ## Remaining manual steps in Shopify admin
 
-1. Settings → Store details → Store name.
+1. Settings → Store details → Store name → **CrochetMade**.
 2. Products → Import the CSV.
 3. Apps → install Shopify **Digital Products**, attach each pattern PDF, automatic fulfillment.
 4. Settings → Policies → paste from the docx (Terms and Privacy: "Create from template", then add the digital products clause).

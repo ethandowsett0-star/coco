@@ -1,6 +1,6 @@
-# Coco Crochet — Shopify theme (YourPattern / Horizon)
+# CrochetMade — Shopify theme (Horizon)
 
-Theme source for the Coco Crochet Shopify store. Migrated on 2026-09-09 from the
+Theme source for the CrochetMade Shopify store. Migrated on 2026-09-09 from the
 YourPattern storefront backup (`yourpattern-shopify-theme/develop`, backup of 2026-09-03).
 
 ## Theme
@@ -37,5 +37,3 @@ shopify theme check
 ## Branches
 
 - `main` — connected to Shopify.
-- `coco-dawn-backup` — the previous Dawn 16.0.0 "Coco Crochet" theme, kept for reference
-  (can be reconnected in Shopify via Add theme → Connect from GitHub).
