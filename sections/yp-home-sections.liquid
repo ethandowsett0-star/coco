@@ -1,0 +1,199 @@
+{% liquid
+  assign featured_collection = section.settings.collection
+  if featured_collection == blank
+    assign featured_collection = collections['all']
+  endif
+%}
+
+<section class="yp-home yp-home--{{ section.id }}" style="--yp-ink:{{ section.settings.ink_color }};--yp-paper:{{ section.settings.paper_color }};--yp-plum:{{ section.settings.plum_color }};--yp-gold:{{ section.settings.gold_color }}">
+  <div class="yp-benefits" aria-label="Store benefits">
+    <div class="yp-benefits__inner">
+      <article class="yp-benefit">
+        <span class="yp-benefit__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3v11m0 0 4-4m-4 4-4-4M5 17v3h14v-3"/></svg></span>
+        <div><strong>{{ section.settings.benefit_1_title | escape }}</strong><span>{{ section.settings.benefit_1_text | escape }}</span></div>
+      </article>
+      <article class="yp-benefit">
+        <span class="yp-benefit__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 4h11l3 3v13H5zM8 9h8M8 13h8M8 17h5"/></svg></span>
+        <div><strong>{{ section.settings.benefit_2_title | escape }}</strong><span>{{ section.settings.benefit_2_text | escape }}</span></div>
+      </article>
+      <article class="yp-benefit">
+        <span class="yp-benefit__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3 5 6v5c0 4.4 2.9 8.4 7 10 4.1-1.6 7-5.6 7-10V6zM9 12l2 2 4-4"/></svg></span>
+        <div><strong>{{ section.settings.benefit_3_title | escape }}</strong><span>{{ section.settings.benefit_3_text | escape }}</span></div>
+      </article>
+    </div>
+  </div>
+
+  <div class="yp-home__inner">
+    <header class="yp-heading yp-heading--categories">
+      <div><p>{{ section.settings.categories_kicker | escape }}</p><h2>{{ section.settings.categories_heading }}</h2></div>
+      <div class="rte">{{ section.settings.categories_text }}</div>
+    </header>
+
+    <div class="yp-category-grid">
+      {% for block in section.blocks %}
+        {% liquid
+          assign category_link = block.settings.link | default: routes.all_products_collection_url
+          case forloop.index
+            when 1
+              assign fallback_asset = 'yp-category-animals.png'
+            when 2
+              assign fallback_asset = 'yp-category-bags.jpg'
+            when 3
+              assign fallback_asset = 'yp-category-flowers.jpg'
+            when 4
+              assign fallback_asset = 'yp-category-home.jpg'
+            when 5
+              assign fallback_asset = 'yp-category-seasonal.jpg'
+            else
+              assign fallback_asset = 'yp-category-characters.jpg'
+          endcase
+        %}
+        <a class="yp-category" href="{{ category_link }}" style="--yp-category-accent:{{ block.settings.accent_color }}" {{ block.shopify_attributes }}>
+          <div class="yp-category__media">
+            {% if block.settings.image != blank %}
+              {{ block.settings.image | image_url: width: 900 | image_tag: widths: '360, 540, 720, 900', sizes: '(min-width: 900px) 33vw, (min-width: 560px) 50vw, 100vw', loading: 'lazy' }}
+            {% else %}
+              <img src="{{ fallback_asset | asset_url }}" width="1000" height="1000" alt="" loading="lazy">
+            {% endif %}
+          </div>
+          <div class="yp-category__body">
+            <span class="yp-category__number">0{{ forloop.index }}</span>
+            <div><h3>{{ block.settings.title | escape }}</h3><p>{{ block.settings.text | escape }}</p></div>
+            <span class="yp-category__arrow" aria-hidden="true">↗</span>
+          </div>
+        </a>
+      {% endfor %}
+    </div>
+
+    <div class="yp-products">
+      <header class="yp-heading yp-heading--products">
+        <div><p>{{ section.settings.products_kicker | escape }}</p><h2>{{ section.settings.products_heading }}</h2></div>
+        {% if featured_collection != blank %}<a href="{{ featured_collection.url }}">View all patterns <span aria-hidden="true">→</span></a>{% endif %}
+      </header>
+
+      <div class="yp-product-grid">
+        {% if featured_collection != blank and featured_collection.products_count > 0 %}
+          {% for product in featured_collection.products limit: section.settings.product_limit %}
+            <article class="yp-product">
+              <a class="yp-product__media" href="{{ product.url }}">
+                {% if product.featured_image != blank %}
+                  {{ product.featured_image | image_url: width: 900 | image_tag: widths: '320, 480, 640, 900', sizes: '(min-width: 990px) 25vw, (min-width: 600px) 50vw, 100vw', loading: 'lazy' }}
+                {% else %}
+                  {{ 'product-1' | placeholder_svg_tag: 'yp-product__placeholder' }}
+                {% endif %}
+                <span class="yp-product__badge">PDF pattern</span>
+              </a>
+              <div class="yp-product__body">
+                <p>{{ product.type | default: 'Crochet pattern' | escape }}</p>
+                <h3><a href="{{ product.url }}">{{ product.title | escape }}</a></h3>
+                <div class="yp-product__footer"><span>{{ product.price | money }}</span><a href="{{ product.url }}" aria-label="View {{ product.title | escape }}">View pattern →</a></div>
+              </div>
+            </article>
+          {% endfor %}
+        {% else %}
+          <article class="yp-product">
+            <div class="yp-product__media"><img src="{{ 'yp-category-animals.png' | asset_url }}" width="1024" height="1024" alt="Crocheted kittens" loading="lazy"><span class="yp-product__badge">Coming soon</span></div>
+            <div class="yp-product__body"><p>Animals & amigurumi</p><h3>Adorable kittens crochet pattern</h3><div class="yp-product__footer"><span>Digital PDF</span><span>In preparation</span></div></div>
+          </article>
+          <article class="yp-product">
+            <div class="yp-product__media"><img src="{{ 'yp-category-bags.jpg' | asset_url }}" width="1000" height="1000" alt="Sunflower crochet bag" loading="lazy"><span class="yp-product__badge">Coming soon</span></div>
+            <div class="yp-product__body"><p>Bags & accessories</p><h3>Sunflower bag crochet pattern</h3><div class="yp-product__footer"><span>Digital PDF</span><span>In preparation</span></div></div>
+          </article>
+          <article class="yp-product">
+            <div class="yp-product__media"><img src="{{ 'yp-category-flowers.jpg' | asset_url }}" width="679" height="679" alt="Crocheted flower pots" loading="lazy"><span class="yp-product__badge">Coming soon</span></div>
+            <div class="yp-product__body"><p>Flowers & plants</p><h3>Flower pot crochet pattern</h3><div class="yp-product__footer"><span>Digital PDF</span><span>In preparation</span></div></div>
+          </article>
+          <article class="yp-product">
+            <div class="yp-product__media"><img src="{{ 'yp-category-seasonal.jpg' | asset_url }}" width="800" height="800" alt="Crocheted magic snowman" loading="lazy"><span class="yp-product__badge">Coming soon</span></div>
+            <div class="yp-product__body"><p>Seasonal & holiday</p><h3>Magic snowman crochet pattern</h3><div class="yp-product__footer"><span>Digital PDF</span><span>In preparation</span></div></div>
+          </article>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="yp-learning">
+      <div class="yp-learning__intro">
+        <p>{{ section.settings.learning_kicker | escape }}</p><h2>{{ section.settings.learning_heading }}</h2><div class="rte">{{ section.settings.learning_text }}</div><div class="yp-learning__stitch" aria-hidden="true">⌁⌁⌁⌁⌁</div>
+      </div>
+      <div class="yp-learning__cards">
+        <a href="{{ section.settings.learning_link_1 | default: routes.all_products_collection_url }}"><span>01</span><h3>{{ section.settings.learning_title_1 | escape }}</h3><p>{{ section.settings.learning_text_1 | escape }}</p><strong>Start here →</strong></a>
+        <a href="{{ section.settings.learning_link_2 | default: routes.all_products_collection_url }}"><span>02</span><h3>{{ section.settings.learning_title_2 | escape }}</h3><p>{{ section.settings.learning_text_2 | escape }}</p><strong>Explore patterns →</strong></a>
+        <a href="{{ section.settings.learning_link_3 | default: routes.all_products_collection_url }}"><span>03</span><h3>{{ section.settings.learning_title_3 | escape }}</h3><p>{{ section.settings.learning_text_3 | escape }}</p><strong>Find your next make →</strong></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+  .yp-home{color:var(--yp-ink);background:var(--yp-paper)}.yp-home__inner,.yp-benefits__inner{width:min(100% - 2.5rem,76rem);margin-inline:auto}
+  .yp-benefits{border-block:1px solid color-mix(in srgb,var(--yp-ink) 16%,transparent);background:#fff}.yp-benefits__inner{display:grid;grid-template-columns:repeat(3,1fr)}.yp-benefit{display:flex;gap:1rem;align-items:center;min-height:7.5rem;padding:1.25rem clamp(1rem,3vw,2.25rem);border-inline-end:1px solid color-mix(in srgb,var(--yp-ink) 13%,transparent)}.yp-benefit:last-child{border-inline-end:0}.yp-benefit__icon{display:grid;flex:0 0 auto;place-items:center;width:2.9rem;height:2.9rem;border-radius:50%;color:var(--yp-plum);background:color-mix(in srgb,var(--yp-plum) 12%,white)}.yp-benefit__icon svg{width:1.45rem;fill:none;stroke:currentColor;stroke-linecap:round;stroke-linejoin:round;stroke-width:1.7}.yp-benefit strong,.yp-benefit span{display:block}.yp-benefit strong{font-size:.95rem}.yp-benefit div>span{margin-top:.2rem;font-size:.8rem;opacity:.65}
+  .yp-heading{display:flex;gap:3rem;align-items:end;justify-content:space-between}.yp-heading--categories{padding-block:clamp(4.5rem,9vw,8rem) 2.4rem}.yp-heading--categories>div:last-child{max-width:30rem;line-height:1.6}.yp-heading p,.yp-learning__intro>p{margin:0 0 .8rem;color:var(--yp-plum);font-size:.75rem;font-weight:750;letter-spacing:.15em;text-transform:uppercase}.yp-heading h2,.yp-learning h2{margin:0;font-family:var(--font-heading--family);font-size:clamp(2.5rem,5vw,4.8rem);letter-spacing:-.045em;line-height:.98}
+  .yp-category-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.1rem}.yp-category{overflow:hidden;border:1px solid color-mix(in srgb,var(--yp-ink) 13%,transparent);border-radius:1.35rem;color:inherit;text-decoration:none;background:#fff;transition:transform 180ms ease,box-shadow 180ms ease}.yp-category:hover{transform:translateY(-4px);box-shadow:0 1.2rem 3rem rgb(43 25 61 / 10%)}.yp-category__media{position:relative;overflow:hidden;aspect-ratio:4 / 3;background:color-mix(in srgb,var(--yp-category-accent) 24%,var(--yp-paper))}.yp-category__media img{width:100%;height:100%;object-fit:cover;transition:transform 360ms ease}.yp-category:hover img{transform:scale(1.035)}.yp-category__placeholder{position:absolute;inset:0}.yp-category__placeholder span{position:absolute;border:2px solid color-mix(in srgb,var(--yp-category-accent) 70%,transparent);border-radius:50%}.yp-category__placeholder span:nth-child(1){inset:18% 42% 18% -5%}.yp-category__placeholder span:nth-child(2){inset:6% 10% 30% 48%}.yp-category__placeholder span:nth-child(3){inset:54% 26% -32% 20%}.yp-category__body{display:grid;grid-template-columns:auto 1fr auto;gap:.85rem;align-items:start;padding:1.25rem}.yp-category__number{color:var(--yp-plum);font-size:.72rem;font-weight:750}.yp-category h3{margin:0;font-size:1.18rem}.yp-category p{margin:.35rem 0 0;font-size:.82rem;line-height:1.5;opacity:.68}.yp-category__arrow{font-size:1.2rem}
+  .yp-products{margin-top:clamp(5rem,11vw,9rem);padding-block:clamp(3rem,6vw,5rem);border-block:1px solid color-mix(in srgb,var(--yp-ink) 13%,transparent)}.yp-heading--products{margin-bottom:2.25rem}.yp-heading--products>a{color:inherit;font-weight:700;text-decoration:none}.yp-product-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1rem}.yp-product{overflow:hidden;border:1px solid color-mix(in srgb,var(--yp-ink) 12%,transparent);border-radius:1.25rem;background:#fff}.yp-product__media{position:relative;display:block;overflow:hidden;aspect-ratio:4 / 5;background:#f1e8f2}.yp-product__media img,.yp-product__placeholder{width:100%;height:100%;object-fit:cover}.yp-product__badge{position:absolute;top:.75rem;left:.75rem;padding:.42rem .7rem;border-radius:999px;color:#fff;font-size:.66rem;font-weight:750;letter-spacing:.08em;text-transform:uppercase;background:var(--yp-plum)}.yp-product__body{padding:1rem}.yp-product__body>p{margin:0 0 .4rem;color:var(--yp-plum);font-size:.68rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase}.yp-product h3{min-height:2.7em;margin:0;font-size:1rem;line-height:1.35}.yp-product h3 a{color:inherit;text-decoration:none}.yp-product__footer{display:flex;gap:.75rem;align-items:center;justify-content:space-between;margin-top:1rem;font-size:.8rem;font-weight:700}.yp-product__footer a{color:var(--yp-plum);text-decoration:none}
+  .yp-learning{display:grid;grid-template-columns:.8fr 1.2fr;gap:clamp(2rem,7vw,7rem);padding-block:clamp(5rem,11vw,9rem)}.yp-learning__intro .rte{max-width:31rem;margin-top:1.3rem;line-height:1.65}.yp-learning__stitch{margin-top:2rem;color:var(--yp-gold);font-size:2.2rem;letter-spacing:.16em}.yp-learning__cards{display:grid;gap:.8rem}.yp-learning__cards a{display:grid;grid-template-columns:auto 1fr auto;gap:1.2rem;align-items:center;padding:1.4rem;border:1px solid color-mix(in srgb,var(--yp-ink) 14%,transparent);border-radius:1rem;color:inherit;text-decoration:none;background:#fff}.yp-learning__cards a>span{color:var(--yp-plum);font-size:.72rem;font-weight:750}.yp-learning__cards h3{margin:0;font-size:1.08rem}.yp-learning__cards p{grid-column:2;margin:-.75rem 0 0;font-size:.82rem;line-height:1.5;opacity:.68}.yp-learning__cards strong{grid-column:3;grid-row:1 / span 2;font-size:.76rem}
+  @media screen and (max-width:989px){.yp-category-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.yp-product-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.yp-learning{grid-template-columns:1fr}}
+  @media screen and (max-width:749px){.yp-home__inner,.yp-benefits__inner{width:min(100% - 1.5rem,76rem)}.yp-benefits__inner{grid-template-columns:1fr}.yp-benefit{min-height:auto;border-inline-end:0;border-block-end:1px solid color-mix(in srgb,var(--yp-ink) 13%,transparent)}.yp-benefit:last-child{border-block-end:0}.yp-heading{display:grid;gap:1rem;align-items:start}}
+  @media screen and (max-width:559px){.yp-category-grid{grid-template-columns:1fr}.yp-product-grid{grid-template-columns:1fr 1fr;gap:.65rem}.yp-product__body{padding:.75rem}.yp-product__footer{align-items:flex-start;flex-direction:column}.yp-learning__cards a{grid-template-columns:auto 1fr}.yp-learning__cards strong{grid-column:2;grid-row:auto}}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "YourPattern homepage",
+  "tag": "section",
+  "class": "section-wrapper",
+  "settings": [
+    { "type": "header", "content": "Store benefits" },
+    { "type": "text", "id": "benefit_1_title", "label": "Benefit 1 heading", "default": "Digital PDF patterns" },
+    { "type": "text", "id": "benefit_1_text", "label": "Benefit 1 text", "default": "No physical product will be shipped" },
+    { "type": "text", "id": "benefit_2_title", "label": "Benefit 2 heading", "default": "Crochet-only catalog" },
+    { "type": "text", "id": "benefit_2_text", "label": "Benefit 2 text", "default": "Every collection is focused on crochet" },
+    { "type": "text", "id": "benefit_3_title", "label": "Benefit 3 heading", "default": "Project details first" },
+    { "type": "text", "id": "benefit_3_text", "label": "Benefit 3 text", "default": "Skill, yarn, hook, and size before checkout" },
+    { "type": "header", "content": "Categories" },
+    { "type": "text", "id": "categories_kicker", "label": "Kicker", "default": "Find your next project" },
+    { "type": "inline_richtext", "id": "categories_heading", "label": "Heading", "default": "Choose your kind of project" },
+    { "type": "richtext", "id": "categories_text", "label": "Text", "default": "<p>Explore crochet patterns for playful amigurumi, useful bags, blooming flowers, cozy décor, festive makes, and charming characters.</p>" },
+    { "type": "header", "content": "Featured patterns" },
+    { "type": "text", "id": "products_kicker", "label": "Kicker", "default": "From the crochet archive" },
+    { "type": "inline_richtext", "id": "products_heading", "label": "Heading", "default": "Featured crochet patterns" },
+    { "type": "collection", "id": "collection", "label": "Collection" },
+    { "type": "range", "id": "product_limit", "label": "Products", "min": 4, "max": 12, "step": 1, "default": 8 },
+    { "type": "header", "content": "Learning area" },
+    { "type": "text", "id": "learning_kicker", "label": "Kicker", "default": "Crochet with confidence" },
+    { "type": "inline_richtext", "id": "learning_heading", "label": "Heading", "default": "A happy place to start" },
+    { "type": "richtext", "id": "learning_text", "label": "Text", "default": "<p>Choose a project for your level, gather your yarn and hook, and enjoy a pattern designed to guide you from the first loop to the final stitch.</p>" },
+    { "type": "text", "id": "learning_title_1", "label": "Card 1 heading", "default": "New to crochet?" },
+    { "type": "text", "id": "learning_text_1", "label": "Card 1 text", "default": "Begin with friendly projects and simple construction." },
+    { "type": "url", "id": "learning_link_1", "label": "Card 1 link" },
+    { "type": "text", "id": "learning_title_2", "label": "Card 2 heading", "default": "Build your skills" },
+    { "type": "text", "id": "learning_text_2", "label": "Card 2 text", "default": "Try texture, shaping, colourwork, and new techniques." },
+    { "type": "url", "id": "learning_link_2", "label": "Card 2 link" },
+    { "type": "text", "id": "learning_title_3", "label": "Card 3 heading", "default": "Make something joyful" },
+    { "type": "text", "id": "learning_text_3", "label": "Card 3 text", "default": "Pick a pattern that makes you excited to cast on." },
+    { "type": "url", "id": "learning_link_3", "label": "Card 3 link" },
+    { "type": "header", "content": "Colours" },
+    { "type": "color", "id": "ink_color", "label": "Ink", "default": "#2f2824" },
+    { "type": "color", "id": "paper_color", "label": "Paper", "default": "#fffaf3" },
+    { "type": "color", "id": "plum_color", "label": "Accent", "default": "#bd6242" },
+    { "type": "color", "id": "gold_color", "label": "Highlight", "default": "#d7a63e" }
+  ],
+  "blocks": [
+    { "type": "category", "name": "Pattern category", "settings": [
+      { "type": "text", "id": "title", "label": "Heading", "default": "Pattern category" },
+      { "type": "text", "id": "text", "label": "Text", "default": "Discover a new project to make." },
+      { "type": "image_picker", "id": "image", "label": "Image" },
+      { "type": "url", "id": "link", "label": "Link" },
+      { "type": "color", "id": "accent_color", "label": "Accent", "default": "#a66bb1" }
+    ] }
+  ],
+  "max_blocks": 6,
+  "presets": [{ "name": "YourPattern homepage", "blocks": [
+    { "type": "category", "settings": { "title": "Animals & amigurumi", "text": "Crochet pets, woodland friends, and playful creatures.", "accent_color": "#c56a4a" } },
+    { "type": "category", "settings": { "title": "Bags & accessories", "text": "Useful pieces with bright handmade character.", "accent_color": "#d9a63e" } },
+    { "type": "category", "settings": { "title": "Flowers & plants", "text": "Botanical projects that stay in bloom.", "accent_color": "#7c956f" } },
+    { "type": "category", "settings": { "title": "Home décor", "text": "Coasters, ornaments, and cozy crochet details.", "accent_color": "#a1b38d" } },
+    { "type": "category", "settings": { "title": "Seasonal & holiday", "text": "Festive patterns for joyful celebrations.", "accent_color": "#7b8da5" } },
+    { "type": "category", "settings": { "title": "Dolls & characters", "text": "Whimsical figures and personality-packed makes.", "accent_color": "#9b74a4" } }
+  ] }]
+}
+{% endschema %}

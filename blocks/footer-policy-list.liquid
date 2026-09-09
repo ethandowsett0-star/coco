@@ -1,0 +1,134 @@
+
+{% if shop.policies.size > 0 %}
+  <nav
+    class="footer-policy-links"
+    aria-label="{{ 'content.terms_and_policies' | t }}"
+    style="
+      {% render 'typography-style', preset: 'custom', settings: block.settings %}
+      {% if block.settings.text_color != blank %}--color-utilities: {{ block.settings.text_color }};{% endif %}
+    "
+    {{ block.shopify_attributes }}
+  >
+    <ul
+      class="policy-list list-unstyled custom-typography{% if block.settings.font_size != blank %} custom-font-size{% endif %}"
+    >
+      {%- for policy in shop.policies -%}
+        {%- if policy != blank -%}
+          <li>
+            <a
+              href="{{ policy.url }}"
+              class="footer-utilities__text"
+            >
+              {{- policy.title | escape -}}
+            </a>
+          </li>
+        {%- endif -%}
+      {%- endfor -%}
+    </ul>
+  </nav>
+{% endif %}
+
+{% stylesheet %}
+  .footer-policy-links {
+    min-width: 0;
+    width: 100%;
+  }
+
+  .policy-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px 18px;
+    margin: 0;
+    padding: 0;
+    white-space: normal;
+  }
+
+  .policy-list a {
+    display: inline-block;
+    font-size: var(--font-size, 0.75rem);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.2em;
+    text-transform: var(--text-transform, none);
+  }
+
+  @media screen and (min-width: 750px) {
+    .policy-list {
+      justify-content: center;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "t:names.policy_list",
+  "tag": null,
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "t:content.manage_policies"
+    },
+    {
+      "type": "header",
+      "content": "t:content.appearance"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "t:settings.text_color",
+      "placeholder": "t:settings.default"
+    },
+    {
+      "type": "select",
+      "id": "font_size",
+      "label": "t:settings.size",
+      "options": [
+        {
+          "value": "0.625rem",
+          "label": "10px"
+        },
+        {
+          "value": "0.75rem",
+          "label": "12px"
+        },
+        {
+          "value": "0.875rem",
+          "label": "14px"
+        },
+        {
+          "value": "1rem",
+          "label": "16px"
+        },
+        {
+          "value": "1.125rem",
+          "label": "18px"
+        }
+      ],
+      "default": "0.75rem"
+    },
+    {
+      "type": "select",
+      "id": "case",
+      "label": "t:settings.case",
+      "options": [
+        {
+          "value": "none",
+          "label": "t:options.default"
+        },
+        {
+          "value": "uppercase",
+          "label": "t:options.uppercase"
+        }
+      ],
+      "default": "none"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:names.policy_list",
+      "category": "t:categories.footer"
+    }
+  ]
+}
+{% endschema %}

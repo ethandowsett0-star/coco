@@ -1,0 +1,129 @@
+{% liquid
+  assign primary_link = section.settings.primary_link | default: routes.all_products_collection_url
+  assign secondary_link = section.settings.secondary_link | default: routes.all_products_collection_url
+%}
+
+<section
+  class="yp-hero yp-hero--{{ section.id }}"
+  style="--yp-bg:{{ section.settings.background_color }};--yp-text:{{ section.settings.text_color }};--yp-accent:{{ section.settings.accent_color }};--yp-sage:{{ section.settings.sage_color }}"
+  aria-labelledby="yp-hero-title-{{ section.id }}"
+>
+  <span class="yp-hero__loop yp-hero__loop--one" aria-hidden="true"></span>
+  <span class="yp-hero__loop yp-hero__loop--two" aria-hidden="true"></span>
+
+  <div class="yp-hero__inner">
+    <div class="yp-hero__copy">
+      {% if section.settings.eyebrow != blank %}
+        <p class="yp-hero__eyebrow"><span aria-hidden="true">✦</span> {{ section.settings.eyebrow | escape }}</p>
+      {% endif %}
+
+      <h1 id="yp-hero-title-{{ section.id }}">{{ section.settings.heading }}</h1>
+
+      {% if section.settings.text != blank %}
+        <div class="yp-hero__text rte">{{ section.settings.text }}</div>
+      {% endif %}
+
+      <div class="yp-hero__actions">
+        {% if section.settings.primary_label != blank %}
+          <a class="yp-hero__button yp-hero__button--primary" href="{{ primary_link }}">
+            {{ section.settings.primary_label | escape }} <span aria-hidden="true">→</span>
+          </a>
+        {% endif %}
+        {% if section.settings.secondary_label != blank %}
+          <a class="yp-hero__button" href="{{ secondary_link }}">{{ section.settings.secondary_label | escape }}</a>
+        {% endif %}
+      </div>
+
+      <ul class="yp-hero__reassurance" role="list">
+        <li><span aria-hidden="true">↓</span>{{ section.settings.point_1 | escape }}</li>
+        <li><span aria-hidden="true">⌁</span>{{ section.settings.point_2 | escape }}</li>
+        <li><span aria-hidden="true">✓</span>{{ section.settings.point_3 | escape }}</li>
+      </ul>
+    </div>
+
+    <div class="yp-hero__showcase" aria-label="Featured crochet projects">
+      <figure class="yp-hero__card yp-hero__card--large">
+        {% if section.settings.image_1 != blank %}
+          {{ section.settings.image_1 | image_url: width: 1200 | image_tag: widths: '480, 720, 960, 1200', sizes: '(min-width: 900px) 32vw, 75vw', loading: 'eager', fetchpriority: 'high' }}
+        {% else %}
+          <img src="{{ 'yp-category-animals.png' | asset_url }}" width="1024" height="1024" alt="Crocheted kitten characters" loading="eager" fetchpriority="high">
+        {% endif %}
+        <figcaption><span>01</span>{{ section.settings.label_1 | escape }}</figcaption>
+      </figure>
+
+      <figure class="yp-hero__card yp-hero__card--top">
+        {% if section.settings.image_2 != blank %}
+          {{ section.settings.image_2 | image_url: width: 900 | image_tag: widths: '360, 540, 720, 900', sizes: '(min-width: 900px) 18vw, 42vw', loading: 'eager' }}
+        {% else %}
+          <img src="{{ 'yp-category-bags.jpg' | asset_url }}" width="1000" height="1000" alt="Sunflower crochet bag" loading="eager">
+        {% endif %}
+        <figcaption><span>02</span>{{ section.settings.label_2 | escape }}</figcaption>
+      </figure>
+
+      <figure class="yp-hero__card yp-hero__card--bottom">
+        {% if section.settings.image_3 != blank %}
+          {{ section.settings.image_3 | image_url: width: 900 | image_tag: widths: '360, 540, 720, 900', sizes: '(min-width: 900px) 18vw, 42vw', loading: 'lazy' }}
+        {% else %}
+          <img src="{{ 'yp-category-flowers.jpg' | asset_url }}" width="679" height="679" alt="Crocheted flower pots" loading="lazy">
+        {% endif %}
+        <figcaption><span>03</span>{{ section.settings.label_3 | escape }}</figcaption>
+      </figure>
+
+      <div class="yp-hero__note">
+        <span aria-hidden="true">PDF</span>
+        <p><strong>{{ section.settings.note_title | escape }}</strong>{{ section.settings.note_text | escape }}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+  .yp-hero{position:relative;isolation:isolate;overflow:hidden;color:var(--yp-text);background:var(--yp-bg)}
+  .yp-hero__inner{display:grid;grid-template-columns:minmax(0,.92fr) minmax(28rem,1.08fr);gap:clamp(2.5rem,6vw,7rem);align-items:center;width:min(100% - 3rem,82rem);min-height:clamp(42rem,80vh,54rem);margin-inline:auto;padding-block:clamp(4.5rem,8vw,8rem)}
+  .yp-hero__copy{position:relative;z-index:2;max-width:45rem}.yp-hero__eyebrow{display:flex;gap:.55rem;align-items:center;margin:0 0 1.25rem;color:var(--yp-accent);font-size:.76rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase}
+  .yp-hero h1{max-width:11ch;margin:0;font-family:var(--font-heading--family);font-size:clamp(3.3rem,6.4vw,6.6rem);font-weight:var(--font-heading--weight);letter-spacing:-.06em;line-height:.93;text-wrap:balance}
+  .yp-hero__text{max-width:38rem;margin-top:1.65rem;font-size:clamp(1rem,1.35vw,1.18rem);line-height:1.68}.yp-hero__text p{margin:0}
+  .yp-hero__actions{display:flex;flex-wrap:wrap;gap:.75rem;margin-top:2.1rem}.yp-hero__button{display:inline-flex;gap:.7rem;align-items:center;justify-content:center;min-height:3.3rem;padding:.85rem 1.45rem;border:1px solid color-mix(in srgb,var(--yp-text) 42%,transparent);border-radius:999px;color:inherit;font-weight:750;text-decoration:none;transition:transform 180ms ease,box-shadow 180ms ease}.yp-hero__button:hover{transform:translateY(-2px);box-shadow:0 .8rem 2rem rgb(61 42 30 / 12%)}.yp-hero__button--primary{border-color:var(--yp-accent);color:#fff;background:var(--yp-accent)}
+  .yp-hero__reassurance{display:flex;flex-wrap:wrap;gap:.7rem 1.2rem;margin:1.65rem 0 0;padding:0;list-style:none}.yp-hero__reassurance li{display:flex;gap:.42rem;align-items:center;font-size:.78rem;font-weight:650;opacity:.78}.yp-hero__reassurance span{display:grid;place-items:center;width:1.35rem;height:1.35rem;border-radius:50%;color:var(--yp-sage);background:color-mix(in srgb,var(--yp-sage) 14%,white)}
+  .yp-hero__showcase{position:relative;min-height:39rem}.yp-hero__card{position:absolute;overflow:hidden;margin:0;border:7px solid #fff;border-radius:1.5rem;background:#fff;box-shadow:0 1.8rem 5rem rgb(63 43 28 / 17%)}.yp-hero__card img{display:block;width:100%;height:100%;object-fit:cover}.yp-hero__card figcaption{position:absolute;right:.6rem;bottom:.6rem;left:.6rem;display:flex;gap:.55rem;align-items:center;padding:.62rem .8rem;border-radius:.8rem;color:#2f2824;font-size:.76rem;font-weight:800;background:rgb(255 252 247 / 91%);backdrop-filter:blur(8px)}.yp-hero__card figcaption span{color:var(--yp-accent);font-size:.66rem}
+  .yp-hero__card--large{top:4%;left:0;width:62%;aspect-ratio:4 / 5;transform:rotate(-2.5deg)}.yp-hero__card--top{top:0;right:0;width:42%;aspect-ratio:1}.yp-hero__card--bottom{right:3%;bottom:1%;width:45%;aspect-ratio:1;transform:rotate(2.4deg)}
+  .yp-hero__note{position:absolute;right:29%;bottom:3%;z-index:3;display:flex;gap:.7rem;align-items:center;max-width:15rem;padding:.75rem 1rem;border:1px solid color-mix(in srgb,var(--yp-text) 12%,transparent);border-radius:1rem;background:#fff;box-shadow:0 .9rem 2rem rgb(63 43 28 / 12%)}.yp-hero__note>span{display:grid;flex:0 0 auto;place-items:center;width:2.4rem;height:2.4rem;border-radius:.7rem;color:#fff;font-size:.66rem;font-weight:850;background:var(--yp-accent)}.yp-hero__note p{margin:0;font-size:.68rem;line-height:1.35}.yp-hero__note strong{display:block;font-size:.76rem}
+  .yp-hero__loop{position:absolute;z-index:-1;border:2px solid color-mix(in srgb,var(--yp-accent) 28%,transparent);border-radius:48% 52% 45% 55%}.yp-hero__loop--one{top:-18rem;left:-12rem;width:38rem;height:38rem}.yp-hero__loop--two{right:-15rem;bottom:-16rem;width:42rem;height:42rem;border-color:color-mix(in srgb,var(--yp-sage) 24%,transparent)}
+  @media screen and (max-width:989px){.yp-hero__inner{grid-template-columns:1fr;min-height:auto}.yp-hero__copy{max-width:48rem}.yp-hero h1{max-width:12ch}.yp-hero__showcase{width:min(100%,43rem);min-height:35rem;margin-inline:auto}}
+  @media screen and (max-width:599px){.yp-hero__inner{width:min(100% - 1.5rem,82rem);padding-block:3.5rem}.yp-hero h1{font-size:clamp(3rem,15vw,4.8rem)}.yp-hero__actions,.yp-hero__button{width:100%}.yp-hero__reassurance{display:grid}.yp-hero__showcase{min-height:27rem}.yp-hero__card{border-width:4px;border-radius:1rem}.yp-hero__card--large{width:65%}.yp-hero__card--top{width:43%}.yp-hero__card--bottom{width:47%}.yp-hero__note{right:18%;bottom:-1%;padding:.55rem .7rem}.yp-hero__note p{display:none}}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Crochet pattern hero",
+  "tag": "section",
+  "class": "section-wrapper",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Crochet-only patterns · digital PDF" },
+    { "type": "inline_richtext", "id": "heading", "label": "Heading", "default": "Your next crochet project starts here" },
+    { "type": "richtext", "id": "text", "label": "Text", "default": "<p>Discover joyful crochet patterns for amigurumi, bags, flowers, home décor, and seasonal makes.</p>" },
+    { "type": "text", "id": "primary_label", "label": "Primary button", "default": "Shop crochet patterns" },
+    { "type": "url", "id": "primary_link", "label": "Primary link" },
+    { "type": "text", "id": "secondary_label", "label": "Secondary button", "default": "Browse beginner patterns" },
+    { "type": "url", "id": "secondary_link", "label": "Secondary link" },
+    { "type": "text", "id": "point_1", "label": "Reassurance 1", "default": "Digital PDF download" },
+    { "type": "text", "id": "point_2", "label": "Reassurance 2", "default": "Crochet patterns only" },
+    { "type": "text", "id": "point_3", "label": "Reassurance 3", "default": "Clear project details" },
+    { "type": "header", "content": "Project showcase" },
+    { "type": "image_picker", "id": "image_1", "label": "Large image" },
+    { "type": "text", "id": "label_1", "label": "Large image label", "default": "Animals & amigurumi" },
+    { "type": "image_picker", "id": "image_2", "label": "Top image" },
+    { "type": "text", "id": "label_2", "label": "Top image label", "default": "Bags & accessories" },
+    { "type": "image_picker", "id": "image_3", "label": "Bottom image" },
+    { "type": "text", "id": "label_3", "label": "Bottom image label", "default": "Flowers & plants" },
+    { "type": "text", "id": "note_title", "label": "PDF note heading", "default": "Digital pattern" },
+    { "type": "text", "id": "note_text", "label": "PDF note text", "default": "No physical item is shipped" },
+    { "type": "header", "content": "Colours" },
+    { "type": "color", "id": "background_color", "label": "Background", "default": "#fbf5ec" },
+    { "type": "color", "id": "text_color", "label": "Text", "default": "#2f2824" },
+    { "type": "color", "id": "accent_color", "label": "Accent", "default": "#bd6242" },
+    { "type": "color", "id": "sage_color", "label": "Sage", "default": "#66765e" }
+  ],
+  "presets": [{ "name": "Crochet pattern hero" }]
+}
+{% endschema %}

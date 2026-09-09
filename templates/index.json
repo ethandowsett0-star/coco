@@ -1,0 +1,137 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */{
+  "sections": {
+    "yp_hero": {
+      "type": "yp-hero",
+      "settings": {
+        "eyebrow": "Crochet-only patterns · digital PDF",
+        "heading": "Your next crochet project starts here",
+        "text": "<p>Discover joyful crochet patterns for amigurumi, bags, flowers, home décor, and seasonal makes.</p>",
+        "primary_label": "Shop crochet patterns",
+        "primary_link": "/collections/all",
+        "secondary_label": "Browse beginner patterns",
+        "secondary_link": "/collections/animals-amigurumi-crochet-patterns",
+        "point_1": "Digital PDF download",
+        "point_2": "Crochet patterns only",
+        "point_3": "Clear project details",
+        "label_1": "Animals & amigurumi",
+        "label_2": "Bags & accessories",
+        "label_3": "Flowers & plants",
+        "note_title": "Digital pattern",
+        "note_text": "No physical item is shipped",
+        "background_color": "#fbf5ec",
+        "text_color": "#2f2824",
+        "accent_color": "#bd6242",
+        "sage_color": "#66765e"
+      }
+    },
+    "yp_home": {
+      "type": "yp-home-sections",
+      "blocks": {
+        "animals": {
+          "type": "category",
+          "settings": {
+            "title": "Animals & amigurumi",
+            "text": "Crochet pets, woodland friends, and playful creatures.",
+            "link": "/collections/animals-amigurumi-crochet-patterns",
+            "accent_color": "#c56a4a"
+          }
+        },
+        "bags": {
+          "type": "category",
+          "settings": {
+            "title": "Bags & accessories",
+            "text": "Useful pieces with bright handmade character.",
+            "link": "/collections/bags-accessories-crochet-patterns",
+            "accent_color": "#d9a63e"
+          }
+        },
+        "flowers": {
+          "type": "category",
+          "settings": {
+            "title": "Flowers & plants",
+            "text": "Botanical projects that stay in bloom.",
+            "link": "/collections/flowers-plants-crochet-patterns",
+            "accent_color": "#7c956f"
+          }
+        },
+        "home": {
+          "type": "category",
+          "settings": {
+            "title": "Home décor",
+            "text": "Coasters, ornaments, and cozy crochet details.",
+            "link": "/collections/home-decor-crochet-patterns",
+            "accent_color": "#a1b38d"
+          }
+        },
+        "seasonal": {
+          "type": "category",
+          "settings": {
+            "title": "Seasonal & holiday",
+            "text": "Festive patterns for joyful celebrations.",
+            "link": "/collections/seasonal-holiday-crochet-patterns",
+            "accent_color": "#7b8da5"
+          }
+        },
+        "characters": {
+          "type": "category",
+          "settings": {
+            "title": "Dolls & characters",
+            "text": "Whimsical figures and personality-packed makes.",
+            "link": "/collections/dolls-characters-crochet-patterns",
+            "accent_color": "#9b74a4"
+          }
+        }
+      },
+      "block_order": [
+        "animals",
+        "bags",
+        "flowers",
+        "home",
+        "seasonal",
+        "characters"
+      ],
+      "settings": {
+        "benefit_1_title": "Digital PDF patterns",
+        "benefit_1_text": "No physical product will be shipped",
+        "benefit_2_title": "Crochet-only catalog",
+        "benefit_2_text": "Every collection is focused on crochet",
+        "benefit_3_title": "Project details first",
+        "benefit_3_text": "Skill, yarn, hook, and size before checkout",
+        "categories_kicker": "Find your next project",
+        "categories_heading": "Choose your kind of project",
+        "categories_text": "<p>Explore crochet patterns for playful amigurumi, useful bags, blooming flowers, cozy décor, festive makes, and charming characters.</p>",
+        "products_kicker": "From the crochet archive",
+        "products_heading": "Featured crochet patterns",
+        "product_limit": 8,
+        "learning_kicker": "Crochet with confidence",
+        "learning_heading": "A happy place to start",
+        "learning_text": "<p>Choose a project for your level, gather your yarn and hook, and enjoy a pattern designed to guide you from the first loop to the final stitch.</p>",
+        "learning_title_1": "Start with amigurumi",
+        "learning_text_1": "Pick a small, joyful character and learn the core shapes.",
+        "learning_link_1": "/collections/animals-amigurumi-crochet-patterns",
+        "learning_title_2": "Make a useful accessory",
+        "learning_text_2": "Build confidence with bags, keychains, and practical projects.",
+        "learning_link_2": "/collections/bags-accessories-crochet-patterns",
+        "learning_title_3": "Create seasonal joy",
+        "learning_text_3": "Choose a festive make for your next celebration.",
+        "learning_link_3": "/collections/seasonal-holiday-crochet-patterns",
+        "ink_color": "#2f2824",
+        "paper_color": "#fffaf3",
+        "plum_color": "#bd6242",
+        "gold_color": "#d7a63e"
+      }
+    }
+  },
+  "order": [
+    "yp_hero",
+    "yp_home"
+  ]
+}

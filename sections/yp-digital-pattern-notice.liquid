@@ -1,0 +1,46 @@
+<section
+  class="yp-pattern-notice"
+  style="--yp-notice-bg:{{ section.settings.background_color }};--yp-notice-text:{{ section.settings.text_color }};--yp-notice-accent:{{ section.settings.accent_color }}"
+  aria-labelledby="yp-pattern-notice-title-{{ section.id }}"
+>
+  <div class="yp-pattern-notice__inner">
+    <div class="yp-pattern-notice__icon" aria-hidden="true">
+      <svg viewBox="0 0 32 32"><path d="M7 3h12l6 6v20H7zM19 3v7h6M11 16h10M11 21h10M11 26h6"/></svg>
+    </div>
+    <div class="yp-pattern-notice__copy">
+      <p>{{ section.settings.kicker | escape }}</p>
+      <h2 id="yp-pattern-notice-title-{{ section.id }}">{{ section.settings.heading }}</h2>
+      <div class="rte">{{ section.settings.text }}</div>
+    </div>
+    <ul role="list">
+      <li><span aria-hidden="true">↓</span>{{ section.settings.point_1 | escape }}</li>
+      <li><span aria-hidden="true">□</span>{{ section.settings.point_2 | escape }}</li>
+      <li><span aria-hidden="true">✓</span>{{ section.settings.point_3 | escape }}</li>
+    </ul>
+  </div>
+</section>
+
+{% stylesheet %}
+  .yp-pattern-notice{color:var(--yp-notice-text);background:var(--yp-notice-bg)}.yp-pattern-notice__inner{display:grid;grid-template-columns:auto minmax(0,1.1fr) minmax(17rem,.9fr);gap:clamp(1.25rem,4vw,3.5rem);align-items:center;width:min(100% - 2.5rem,76rem);margin-inline:auto;padding-block:clamp(2rem,5vw,3.5rem)}.yp-pattern-notice__icon{display:grid;place-items:center;width:4rem;height:4rem;border-radius:1.25rem;color:#fff;background:var(--yp-notice-accent)}.yp-pattern-notice__icon svg{width:2rem;fill:none;stroke:currentColor;stroke-linecap:round;stroke-linejoin:round;stroke-width:1.6}.yp-pattern-notice__copy>p{margin:0 0 .35rem;color:var(--yp-notice-accent);font-size:.7rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase}.yp-pattern-notice h2{margin:0;font-family:var(--font-heading--family);font-size:clamp(1.6rem,3vw,2.5rem);letter-spacing:-.035em}.yp-pattern-notice .rte{max-width:43rem;margin-top:.6rem;font-size:.88rem;line-height:1.55}.yp-pattern-notice .rte p{margin:0}.yp-pattern-notice ul{display:grid;gap:.55rem;margin:0;padding:0;list-style:none}.yp-pattern-notice li{display:flex;gap:.65rem;align-items:center;font-size:.8rem;font-weight:700}.yp-pattern-notice li span{display:grid;place-items:center;width:1.6rem;height:1.6rem;border-radius:50%;color:var(--yp-notice-accent);background:#fff}
+  @media screen and (max-width:749px){.yp-pattern-notice__inner{grid-template-columns:auto 1fr}.yp-pattern-notice ul{grid-column:1 / -1}.yp-pattern-notice__icon{width:3.2rem;height:3.2rem}}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Digital pattern notice",
+  "tag": "section",
+  "class": "section-wrapper",
+  "settings": [
+    { "type": "text", "id": "kicker", "label": "Kicker", "default": "Please read before purchase" },
+    { "type": "inline_richtext", "id": "heading", "label": "Heading", "default": "This is a digital crochet pattern" },
+    { "type": "richtext", "id": "text", "label": "Text", "default": "<p>Your purchase includes a downloadable PDF pattern only. No finished item, yarn, hook, stuffing, safety eyes, or other physical materials will be shipped.</p>" },
+    { "type": "text", "id": "point_1", "label": "Point 1", "default": "PDF download" },
+    { "type": "text", "id": "point_2", "label": "Point 2", "default": "No physical delivery" },
+    { "type": "text", "id": "point_3", "label": "Point 3", "default": "Check language and skill level" },
+    { "type": "color", "id": "background_color", "label": "Background", "default": "#f1e7d9" },
+    { "type": "color", "id": "text_color", "label": "Text", "default": "#2f2824" },
+    { "type": "color", "id": "accent_color", "label": "Accent", "default": "#bd6242" }
+  ],
+  "presets": [{ "name": "Digital pattern notice" }]
+}
+{% endschema %}
