@@ -384,7 +384,7 @@
     class="header__underlay header__underlay-open"
   ></div>
   {%- if request.page_type == 'index' -%}
-    <h1 class="visually-hidden">{{ shop.name }}</h1>
+    <h1 class="visually-hidden">{{ settings.store_name_override | default: shop.name }}</h1>
   {%- endif -%}
   {% for row in rows %}
     {% liquid

@@ -1,3 +1,6 @@
+{%- liquid
+  assign store_name = settings.store_name_override | default: shop.name
+-%}
 
 {% assign block_settings = block.settings %}
 <div
@@ -14,7 +17,7 @@
 >
   <span class="footer-utilities__text">
     &copy; {{ 'now' | date: '%Y' }}
-    {{ shop.name | link_to: routes.root_url -}}
+    {{ store_name | link_to: routes.root_url -}}
     {%- if block_settings.show_powered_by -%}
       , {{ powered_by_link }}
     {%- endif -%}

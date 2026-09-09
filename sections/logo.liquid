@@ -1,3 +1,6 @@
+{%- liquid
+  assign store_name = settings.store_name_override | default: shop.name
+-%}
 
 
 {% liquid
@@ -23,7 +26,7 @@
         widths: '240, 352, 832, 1200, 1600, 1920, 2560, 3840',
         height: image.height,
         class: 'logo-section__image',
-        alt: shop.name,
+        alt: store_name,
         sizes: '(min-width: 750px) calc(var(--logo-width)), 100vw'
     -}}
   {% endcapture %}
@@ -48,7 +51,7 @@
         {% if image %}
           --logo-width: {{ image.width | times: 1.00 | divided_by: image.height | times: section_settings.pixel_height }}px;
         {% else %}
-          --logo-width: {{ shop.name.size | times: 0.65 }}em;
+          --logo-width: {{ store_name.size | times: 0.65 }}em;
           --logo-height: {{ section_settings.pixel_height }}px;
         {% endif %}
       {% endif %}
@@ -61,7 +64,7 @@
           {% if image %}
             --logo-width-mobile: {{ image.width | times: 1.00 | divided_by: image.height | times: section_settings.pixel_height_mobile }}px;
             {% else %}
-              --logo-width-mobile: {{ shop.name.size | times: 0.65 }}em;
+              --logo-width-mobile: {{ store_name.size | times: 0.65 }}em;
               --logo-height-mobile: {{ section_settings.pixel_height_mobile }}px;
           {% endif %}
         {% endif %}
@@ -75,7 +78,7 @@
         {{ logo_image }}
       </div>
     {% else %}
-      {% render 'jumbo-text', text: shop.name, block_settings: section.settings %}
+      {% render 'jumbo-text', text: store_name, block_settings: section.settings %}
     {% endif %}
   </div>
 </div>
